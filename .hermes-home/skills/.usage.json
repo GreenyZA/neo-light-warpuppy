@@ -1,0 +1,17 @@
+{
+  "acer-ssh": {
+    "archived_at": null,
+    "created_at": "2026-08-20T17:15:35.947873+00:00",
+    "created_by": null,
+    "last_patched_at": null,
+    "last_reused_patch_generation": 0,
+    "last_used_at": "2026-08-20T17:19:55.680738+00:00",
+    "last_viewed_at": "2026-08-20T17:19:55.673908+00:00",
+    "patch_count": 0,
+    "patch_generation": 0,
+    "pinned": false,
+    "state": "active",
+    "use_count": 2,
+    "view_count": 2
+  }
+}
