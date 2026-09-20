@@ -1,0 +1,26 @@
+name: Test
+on: [push, pull_request]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: |
+          pip install pyyaml pytest fastapi uvicorn pydantic httpx
+      - name: Run integration tests
+        run: python -m pytest token_optimiser/tests/ -v
+      - name: Test dashboard import
+        run: python -c "from token_optimiser.dashboard import app; print('Dashboard OK')"
+      - name: Test BOA CLI
+        run: |
+          python -m token_optimiser.boa --test-itil
+          python -m token_optimiser.boa --test-boa
+      - name: Test config loads
+        run: python -c "from token_optimiser.config import config; print(f'T1={config.tier_backends["T1"]["enabled"]}, T2={len(config.tier_backends["T2"]["gateways"])} gateways, T3={len(config.tier_backends["T3"]["providers"])} providers')"

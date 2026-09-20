@@ -1,0 +1,3 @@
+[submodule "token_optimiser"]
+	path = token_optimiser
+	url = git@github.com:GreenyZA/neo-light-core.git
