@@ -1,0 +1,41 @@
+name: matrix
+description: Neon green on black — the Matrix. Agent is Neo.
+
+colors:
+  background: "#000000"
+  ui_accent: "#00ff41"
+  banner_accent: "#00ff41"
+  banner_title: "#00ff41"
+  banner_text: "#9f9"
+  ui_text: "#00ff41"
+  banner_dim: "#007a20"
+  banner_border: "#00ff41"
+  ui_border: "#00ff41"
+  ui_ok: "#00ff41"
+  ui_warn: "#adff2f"
+  ui_error: "#ff003c"
+  prompt: "#00ff41"
+  input_rule: "#00ff41"
+  response_border: "#00ff41"
+  status_bar_bg: "#001100"
+  status_bar_text: "#00ff41"
+  status_bar_good: "#00ff41"
+  status_bar_warn: "#adff2f"
+  status_bar_critical: "#ff003c"
+  session_label: "#00ff41"
+  session_border: "#007a20"
+
+branding:
+  agent_name: Neo
+  prompt_symbol: ">"
+  help_header: "Wake up, WarPuppy."
+
+spinner:
+  verbs:
+    - jacking in
+    - following the white rabbit
+    - there is no spoon
+    - decoding the matrix
+    - dodging bullets
+
+tool_prefix: "|"

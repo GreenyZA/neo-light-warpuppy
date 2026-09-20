@@ -1,0 +1,61 @@
+model:
+  default: llama3.1-16k
+  provider: custom
+  base_url: http://192.168.1.10:11434/v1
+  context_length: 16384
+  ollama_num_ctx: 16384
+  max_output_tokens: 1024
+fallback_providers:
+- provider: lmstudio
+  model: qwen2.5-3b-instruct
+  base_url: http://192.168.1.10:8081/v1
+- provider: custom
+  model: minimaxai/minimax-m3
+  base_url: https://integrate.api.nvidia.com/v1
+  key_env: NVIDIA_API_KEY
+- provider: custom
+  model: openrouter/free
+  base_url: https://openrouter.ai/api/v1
+  key_env: OPENROUTER_API_KEY
+compression:
+  enabled: true
+  threshold: 0.8
+auxiliary:
+  free_only: true
+  compression:
+    context_length: 16384
+agent:
+  max_turns: 40
+  verbose: false
+  personalities: {}
+display:
+  compact: true
+  streaming: true
+  skin: matrix
+  show_reasoning: false
+  bell_on_complete: false
+terminal:
+  backend: local
+  cwd: /home/warpuppy/Projects/light-engine/work
+  timeout: 180
+  home_mode: auto
+  container_persistent: false
+  lifetime_seconds: 300
+web:
+  use_gateway: false
+memory:
+  memory_enabled: true
+  user_profile_enabled: false
+approvals:
+  mode: 'off'
+  timeout: 30
+security:
+  redact_secrets: true
+  tirith_fail_open: true
+telemetry:
+  shared_metrics:
+    enabled: false
+platform_toolsets:
+  cli:
+  - file
+  - terminal

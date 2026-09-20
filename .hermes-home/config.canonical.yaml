@@ -1,0 +1,71 @@
+# Light Engine. Vulkan via Hermes "lmstudio" local bypass (allows <64k).
+# neo re-pins model.* on every start so Hermes cannot save MiniMax as default.
+model:
+  default: qwen2.5-3b-instruct
+  provider: lmstudio
+  base_url: http://192.168.1.10:8081/v1
+  context_length: 4096
+  max_output_tokens: 512
+
+fallback_providers:
+  - provider: custom
+    model: llama3.1:8b-instruct-q4_K_M
+    base_url: http://192.168.1.10:11434/v1
+  - provider: custom
+    model: minimaxai/minimax-m3
+    base_url: https://integrate.api.nvidia.com/v1
+    key_env: NVIDIA_API_KEY
+  - provider: custom
+    model: openrouter/free
+    base_url: https://openrouter.ai/api/v1
+    key_env: OPENROUTER_API_KEY
+
+auxiliary:
+  free_only: true
+
+agent:
+  max_turns: 40
+  verbose: false
+  personalities: {}
+
+display:
+  compact: true
+  streaming: true
+  skin: matrix
+  show_reasoning: false
+  bell_on_complete: false
+
+terminal:
+  backend: local
+  cwd: /home/warpuppy/Projects/light-engine/work
+  timeout: 180
+  home_mode: auto
+  container_persistent: false
+  lifetime_seconds: 300
+
+web:
+  use_gateway: false
+
+memory:
+  memory_enabled: true
+  user_profile_enabled: false
+
+approvals:
+  mode: smart
+
+security:
+  redact_secrets: true
+  tirith_fail_open: true
+
+telemetry:
+  shared_metrics:
+    enabled: false
+
+platform_toolsets:
+  cli:
+    - file
+    - terminal
+    - code_execution
+    - skills
+    - todo
+    - web
