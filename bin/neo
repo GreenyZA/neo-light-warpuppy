@@ -20,6 +20,10 @@ fi
 export LM_BASE_URL="http://192.168.1.10:8081/v1"
 export LM_API_KEY="${LM_API_KEY:-lm-studio}"
 
+# OpenRig mode: set NEO_OPENRIG_MODE=1 to load the openrig/ package
+# When unset/false, falls back to the current token_optimiser path
+export NEO_OPENRIG_MODE="${NEO_OPENRIG_MODE:-0}"
+
 umask 077
 
   printf 'LM_BASE_URL=%s\n' "$LM_BASE_URL"

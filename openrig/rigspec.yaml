@@ -1,0 +1,118 @@
+# OpenRig — Declarative Topology (RigSpec)
+# Phase 1: Seat abstraction + pod grouping + culture rules
+#
+# A rig is the topology of multiple agent harnesses working together.
+# Seats are stable agent configs with addresses + tribal wisdom inheritance.
+# Pods are shared-context teams. Edges define communication paths.
+
+meta:
+  name: "neo-light-warpuppy"
+  version: "0.1.0-phase1"
+  description: "OpenRig control plane for neo-light warpuppy fork"
+
+# ── Seats ──────────────────────────────────────────────────────────────────────
+# Stable agent configurations with addresses and tribal wisdom inheritance.
+# Each seat is "a chair with an address on it" — the agent sits in the chair.
+seats:
+  - id: architect
+    name: "Architect"
+    address: "architect@governance-pod"
+    framing: "System design, trade-offs, long-term maintainability, structural coherence."
+    tribal_wisdom: []
+    pod: governance-pod
+
+  - id: engineer
+    name: "Engineer"
+    address: "engineer@governance-pod"
+    framing: "Implementation details, practicality, performance, correctness."
+    tribal_wisdom: []
+    pod: governance-pod
+
+  - id: researcher
+    name: "Researcher"
+    address: "researcher@governance-pod"
+    framing: "Evidence, precedents, benchmarks, citations."
+    tribal_wisdom: []
+    pod: governance-pod
+
+  - id: reviewer
+    name: "Reviewer"
+    address: "reviewer@governance-pod"
+    framing: "Critical assessment: risks, blind spots, edge cases, failure modes."
+    tribal_wisdom: []
+    pod: governance-pod
+
+  - id: budget
+    name: "Budget (Token Optimiser)"
+    address: "budget@routing-pod"
+    framing: "Cost, routing, efficiency. Which tier (T1/T2/T3) is appropriate?"
+    tribal_wisdom: []
+    pod: routing-pod
+
+  - id: executive
+    name: "Executive (Chair)"
+    address: "executive@governance-pod"
+    framing: "Synthesise board views into a single recommendation."
+    tribal_wisdom: []
+    pod: governance-pod
+
+# ── Pods ───────────────────────────────────────────────────────────────────────
+# Shared-context teams. Agents in the same pod share memory and communicate freely.
+pods:
+  - id: governance-pod
+    name: "Governance Pod"
+    description: "BOA seats + executive. ITIL classification, governance decisions, swarm oversight."
+    seats: [architect, engineer, researcher, reviewer, executive]
+    culture: |
+      ## Governance Pod Culture
+      - ITIL classify all ops questions before answering
+      - Privacy keywords force T1 routing regardless of pod configuration
+      - Human-ask gates survive all migrations
+      - learning_log.jsonl audit trail is preserved and strengthened
+      - Tribal wisdom inheritance must pass review loops before propagation
+
+  - id: routing-pod
+    name: "Routing Pod"
+    description: "Token Optimiser + Budget seat. TOS routing, confidence scoring, tier selection."
+    seats: [budget]
+    culture: |
+      ## Routing Pod Culture
+      - Free tier priority: T2 free cloud before T1 local (free_tier_priority=True)
+      - Security tasks capped at 55% confidence ceiling
+      - Privacy/offline keywords short-circuit to T1
+      - Record all routing decisions to learning_log.jsonl
+
+  - id: worker-pod
+    name: "Worker Pod"
+    description: "Swarm workers + reviewers. Parallel task execution with paired reviewers."
+    seats: []
+    culture: |
+      ## Worker Pod Culture
+      - Every worker has a paired reviewer
+      - Swarms of 3+ require a Top-Level Approver
+      - Tasks must be independent (no shared state, no ordering dependencies)
+      - Reviewer ↔ Worker loop: clean pass required (zero Critical + High)
+
+# ── Edges ──────────────────────────────────────────────────────────────────────
+# Communication paths between pods.
+edges:
+  - from: governance-pod
+    to: routing-pod
+    description: "Governance decisions route through TOS for tier selection"
+  - from: routing-pod
+    to: worker-pod
+    description: "Routing decisions dispatch to swarm workers"
+  - from: governance-pod
+    to: worker-pod
+    description: "Swarm oversight and reviewer assignment"
+
+# ── Continuity Policies ────────────────────────────────────────────────────────
+continuity:
+  tribal_wisdom_inheritance:
+    enabled: true
+    scrubbing: "PII must be scrubbed before inheritance"
+    retention: "30 days max, then purged"
+    review_required: true
+  snapshot_restore:
+    enabled: true
+    description: "Seats can be snapshotted and restored after reboot"
