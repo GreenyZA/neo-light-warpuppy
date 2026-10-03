@@ -111,8 +111,8 @@ class TestRefocusStub(unittest.TestCase):
         refocus = Refocus()
         result = refocus.trace("build doghouse", {
             "project": "be a good dog owner",
-            "mission": "make outdoors comfortable",
-            "slice": "build usable doghouse",
+            "mission": "make the outdoors comfortable for the dog",
+            "slice": "build a usable doghouse for the dog",
         })
         self.assertTrue(result["aligned"])
         self.assertIn("timestamp", result)
