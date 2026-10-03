@@ -7,6 +7,7 @@ Tests for RigSpec loading, seat abstraction, pod grouping, and feature flag.
 import os
 import sys
 import unittest
+import shutil
 from pathlib import Path
 
 # Ensure the package root is importable
@@ -119,14 +120,19 @@ class TestRefocusStub(unittest.TestCase):
 
 class TestAPMStub(unittest.TestCase):
     def test_record_and_ratio(self):
+        import tempfile
         from openrig.apm import APM
-        apm = APM()
-        apm.record_ceremony("boa_session", {"question": "test"})
-        apm.record_progress("slice_completed", {"slice": "test"})
-        ratio = apm.get_ratio()
-        self.assertEqual(ratio["ceremony_count"], 1)
-        self.assertEqual(ratio["progress_count"], 1)
-        self.assertFalse(ratio["threshold_exceeded"])
+        tmpdir = tempfile.mkdtemp()
+        try:
+            apm = APM(log_dir=Path(tmpdir))
+            apm.record_ceremony("boa_session", {"question": "test"})
+            apm.record_progress("slice_completed", {"slice": "test"})
+            ratio = apm.get_ratio()
+            self.assertEqual(ratio["ceremony_count"], 1)
+            self.assertEqual(ratio["progress_count"], 1)
+            self.assertFalse(ratio["threshold_exceeded"])
+        finally:
+            shutil.rmtree(tmpdir, ignore_errors=True)
 
 
 if __name__ == "__main__":

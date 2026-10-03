@@ -1,0 +1,11 @@
+id: openrig-factory
+title: OpenRig Intelligence Factory
+intent: Build the OpenRig intelligence factory for neo-light — a declarative, auditable multi-agent control plane.
+mission_ids:
+  - phase-1-rigspec
+  - phase-2-factory
+  - phase-3-refocus
+  - phase-4-apm
+  - phase-5-dogfood
+status: in_progress
+created: '2026-10-03T22:45:00+00:00'
