@@ -1,0 +1,8 @@
+{
+  "timestamp": "2026-10-03T20:45:06.787375+00:00",
+  "category": "ceremony",
+  "event_type": "boa_session",
+  "details": {
+    "question": "test"
+  }
+}

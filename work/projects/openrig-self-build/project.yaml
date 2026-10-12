@@ -1,0 +1,9 @@
+created: '2026-10-03T21:22:42.173434+00:00'
+id: openrig-self-build
+intent: Build and validate the OpenRig intelligence factory using OpenRig itself
+mission_ids:
+- mission-1-tos
+- mission-2-dogfood
+- mission-3-package
+status: pending
+title: OpenRig Self-Build

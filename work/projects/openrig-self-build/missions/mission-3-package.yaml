@@ -1,0 +1,9 @@
+id: mission-3-package
+outcome: Package as default topology for public neo-light repo
+project_id: openrig-self-build
+sequence: 3
+slice_ids:
+- slice-1-docs
+- slice-2-cleanup
+status: pending
+title: Public Packaging

@@ -1,0 +1,10 @@
+assigned_seat: ''
+dependencies: []
+id: slice-1-docs
+mission_id: mission-3-package
+project_id: openrig-self-build
+proof: ''
+spec: Document the OpenRig system for public release
+status: pending
+tier: ''
+title: Write README + docs

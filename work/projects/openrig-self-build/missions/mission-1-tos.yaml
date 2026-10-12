@@ -1,0 +1,11 @@
+id: mission-1-tos
+outcome: Wire token optimiser into OpenRig control plane
+project_id: openrig-self-build
+sequence: 1
+slice_ids:
+- slice-1-flag
+- slice-2-refocus
+- slice-3-apm
+- slice-4-seats
+status: pending
+title: TOS Integration
