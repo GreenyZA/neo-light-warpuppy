@@ -1,0 +1,10 @@
+assigned_seat: ''
+dependencies: []
+id: slice-3-apm
+mission_id: mission-1-tos
+project_id: openrig-self-build
+proof: ''
+spec: Record ceremony and progress events in router
+status: pending
+tier: ''
+title: Add APM events

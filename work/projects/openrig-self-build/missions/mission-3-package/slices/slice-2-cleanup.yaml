@@ -1,0 +1,10 @@
+assigned_seat: ''
+dependencies: []
+id: slice-2-cleanup
+mission_id: mission-3-package
+project_id: openrig-self-build
+proof: ''
+spec: Remove test artifacts and prepare release
+status: pending
+tier: ''
+title: Clean up + release

@@ -1,0 +1,9 @@
+id: mission-2-dogfood
+outcome: Run real tasks through the system and measure health
+project_id: openrig-self-build
+sequence: 2
+slice_ids:
+- slice-1-tasks
+- slice-2-measure
+status: pending
+title: Dogfood Validation

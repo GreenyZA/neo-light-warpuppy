@@ -1,0 +1,10 @@
+assigned_seat: ''
+dependencies: []
+id: slice-4-seats
+mission_id: mission-1-tos
+project_id: openrig-self-build
+proof: ''
+spec: Use RigSpec seats for worker assignment
+status: pending
+tier: ''
+title: Assign workers to seats

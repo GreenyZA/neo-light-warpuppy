@@ -1,0 +1,10 @@
+assigned_seat: ''
+dependencies: []
+id: slice-1-tasks
+mission_id: mission-2-dogfood
+project_id: openrig-self-build
+proof: ''
+spec: Execute real projects through OpenRig routing
+status: pending
+tier: ''
+title: Run real tasks

@@ -1,0 +1,10 @@
+assigned_seat: ''
+dependencies: []
+id: slice-2-measure
+mission_id: mission-2-dogfood
+project_id: openrig-self-build
+proof: ''
+spec: Track APM ratio and refocus alignment
+status: pending
+tier: ''
+title: Measure ceremony vs progress

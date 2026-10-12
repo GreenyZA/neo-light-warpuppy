@@ -1,0 +1,12 @@
+{
+  "timestamp": "2026-10-03T21:13:54.070260+00:00",
+  "task": "build doghouse",
+  "intent_chain": {
+    "project": "be a good dog owner",
+    "mission": "make the outdoors comfortable for the dog",
+    "slice": "build a usable doghouse for the dog"
+  },
+  "aligned": true,
+  "alignment_score": 0.55,
+  "warnings": []
+}
