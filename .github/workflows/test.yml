@@ -23,7 +23,4 @@ jobs:
           python -m token_optimiser.boa --test-itil
           python -m token_optimiser.boa --test-boa
       - name: Test config loads
-        run: python -c "
-          from token_optimiser.config import config
-          print('T1=%s, T2=%d gateways, T3=%d providers' % (config.tier_backends['T1']['enabled'], len(config.tier_backends['T2']['gateways']), len(config.tier_backends['T3']['providers'])))
-          "
+        run: python smoke_config.py
