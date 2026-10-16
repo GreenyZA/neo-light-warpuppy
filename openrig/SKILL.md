@@ -95,3 +95,58 @@ Set `NEO_OPENRIG_MODE=1` to enable OpenRig mode. When unset, falls back to the c
 | 3 | Refocus (intent-chain tracing) | PENDING |
 | 4 | APM (ceremony vs progress) | PENDING |
 | 5 | Dogfood + Package | PENDING |
+
+## Scope Verifier (NEW in v0.2.0-swarm-guard)
+
+The verifier (`openrig.verifier`) is the guardrail between a worker finishing
+and its output shipping. It exists because v1/v2 of the guardrail
+(LLM-verdict-on-worker-transcript) under- or over-detected scope drift.
+
+### Three layers, cheapest first
+
+1. **Tool evidence** � O(1), zero model calls. If the worker touched any
+   tool outside the slice's ALLOWED set, FAIL immediately.
+2. **Heuristic pre-filter** � O(n) text, zero model calls. Looks for
+   action verbs (`sent`, `installed`, `drafted`, `created ticket`, ...).
+   Side-effect-free phrasing passes; suspicious ones escalate.
+3. **LLM ambiguous band** � O(1) model call, invoked ONLY when layers 1-2
+   cannot classify. Opt-in via `use_llm=True`.
+
+Layer 3 degrades safely (FAIL-closed → human review) when no LLM endpoint
+is available, so production never trusts ambiguous cases.
+
+### Usage
+
+```python
+from openrig.verifier import verify, ToolTrace, is_guard_enabled
+trace = ToolTrace()
+# inside the worker: trace.record("file_write", {"path": "x"})
+result = verify(
+    slice_id="invoice-hours-02",
+    tool_calls=trace.names(),
+    output_text=worker_output,
+    allowed_tools={"vault_read", "csv_write_local"},
+    non_goals=["do not create invoice", "do not email client"],
+    spec="Recompute billable hours ...",
+)
+# result["verdict"] in {"PASS", "FAIL"}; result["layer"] in {tool, heuristic, llm, human-gate, ...}
+if result["verdict"] != "PASS":
+    # log to work/refocus or escalate to human
+    ...
+```
+
+### Tool-call capture contract
+
+For the verifier to work in production, the execution layer (Hermes
+`delegate_task`, OpenAI Agents SDK, whatever) must surface a per-worker list
+of tool function names. The verifier takes whatever string list is provided;
+if the runtime cannot expose this, tool-evidence degrades to "no tools" and
+all slices fall through to heuristic/LLM layers (recovering the v1 80%
+recall behaviour). Agents should call `trace.record(name, args)` from each
+tool handler and persist `trace.names()` with the worker result.
+
+### Permission model
+
+`build_allowed_tools(slice_id, non_goals=...)` infers a per-slice tool set
+from the non_goals text ("Allowed: read, search") or falls back to the
+read-only baseline. Passed-in `allowed_tools` always wins.
