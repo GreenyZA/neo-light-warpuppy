@@ -197,6 +197,38 @@ class TOSIntegration:
         }
 
 
+# Scope guard integration (swarm-guard / v0.2.0, opt-in via NEO_GUARD_MODE)
+    def _guard_flag(self) -> bool:
+        try:
+            from openrig.verifier import is_guard_enabled
+            return bool(is_guard_enabled())
+        except Exception:
+            return False
+
+    def guardegent_enabled(self) -> bool:
+        return self._guard_flag()
+
+    def guard_scope(self, slice_id: str, tool_calls, output_text: str, **kw):
+        if not self._guard_flag():
+            return {"slice_id": slice_id, "verdict": "PASS", "layer": "off",
+                    "reason": "guard disabled (NEO_GUARD_MODE not set)",
+                    "scope_violation": False, "guardrail_tokens": 0,
+                    "llm_used": False, "latency_ms": 0.0,
+                    "tool_calls": list(tool_calls or [])}
+        from openrig.verifier import verify
+        return verify(slice_id=slice_id, tool_calls=list(tool_calls or []),
+                      output_text=output_text or "", use_llm=True, **kw)
+
+    def attach_guard_to_router(self, router):
+        if self._guard_flag():
+            try:
+                from openrig.verifier import attach_to_router
+                attach_to_router(router)
+            except Exception:
+                pass
+        return router
+
+
 # Singleton instance
 _integration: Optional[TOSIntegration] = None
 
