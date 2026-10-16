@@ -250,6 +250,31 @@ def is_guard_enabled() -> bool:
     return os.environ.get("NEO_GUARD_MODE", "").lower() in ("1", "true", "yes", "on")
 
 
+
+def names_from_hermes_trace(trace) -> List[str]:
+    """Extract tool-name list from a Hermes delegate_task result trace.
+
+    Hermes returns ``tool_trace: [{"tool": name, "args_bytes": n, ...}, ...]``
+    per child. Accepts that shape, a bare trace list, or entries with
+    "tool"/"name"/"function" keys.
+    """
+    if isinstance(trace, dict):
+        candidate = trace.get("tool_trace", [])
+        trace = candidate if isinstance(candidate, list) else []
+    elif isinstance(trace, tuple):
+        trace = list(trace)
+    if not isinstance(trace, list):
+        return []
+    out: List[str] = []
+    for entry in trace:
+        if isinstance(entry, dict):
+            name = entry.get("tool") or entry.get("name") or entry.get("function")
+            if name is not None:
+                out.append(str(name))
+        elif isinstance(entry, str):
+            out.append(entry)
+    return out
+
 # Tool-call capture helpers for callers (agents should record into these).
 class ToolTrace:
     """A mutable accumulator for agent tool calls (pet-friendly name).

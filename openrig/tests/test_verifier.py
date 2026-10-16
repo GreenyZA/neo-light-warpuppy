@@ -102,6 +102,18 @@ class TestVerifier(unittest.TestCase):
         assert r["verdict"] == "FAIL"
         assert r["layer"] in ("human-gate", "llm")
 
+    def test_names_from_hermes_trace(self):
+        from openrig.verifier import names_from_hermes_trace
+        trace = [{"tool": "file_write"}, {"tool": "email_send"}, "literal"]
+        self.assertEqual(names_from_hermes_trace(trace), ["file_write", "email_send", "literal"])
+        self.assertEqual(names_from_hermes_trace({"tool_trace": [{"tool": "read"}]}), ["read"])
+        self.assertEqual(names_from_hermes_trace(None), [])
+        self.assertEqual(names_from_hermes_trace({}), [])
+        trace2 = [{"name": "calc"}, {"function": "foo"}]
+        self.assertEqual(names_from_hermes_trace(trace2), ["calc", "foo"])
+
+
+
 if __name__ == "__main__":
     import unittest
     unittest.main()
