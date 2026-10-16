@@ -3,7 +3,7 @@
 Phases 1-4 + swarm-guard verifier (tool-evidence / heuristic / LLM band).
 """
 
-__version__ = "0.2.0-swarm-guard"
+__version__ = "0.2.0-tested-prototype"
 
 from openrig.loader import is_enabled, load_rigspec, RigSpec
 try:
