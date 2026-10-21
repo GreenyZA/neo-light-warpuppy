@@ -17,10 +17,10 @@ jobs:
       - name: Run integration tests
         run: python -m pytest token_optimiser/tests/ -v
       - name: Test dashboard import
-        run: python -c "from token_optimiser.dashboard import app; print('Dashboard OK')"
+        run: python smoke_config.py
       - name: Test BOA CLI
         run: |
           python -m token_optimiser.boa --test-itil
           python -m token_optimiser.boa --test-boa
       - name: Test config loads
-        run: python -c "from token_optimiser.config import config; print(f'T1={config.tier_backends["T1"]["enabled"]}, T2={len(config.tier_backends["T2"]["gateways"])} gateways, T3={len(config.tier_backends["T3"]["providers"])} providers')"
+        run: python smoke_config.py
